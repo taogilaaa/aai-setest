@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`query controller should return BAD_REQUEST on missing image 1`] = `
+Object {
+  "error": Object {
+    "code": "BAD_REQUEST",
+    "message": "Missing or invalid parameters",
+  },
+}
+`;
+
+exports[`query controller should return success and size on proper request 1`] = `
+Object {
+  "size": "6.94kb",
+  "status": "SUCCESS",
+}
+`;
