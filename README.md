@@ -15,7 +15,7 @@ docker-compose up
 
 ## Testing
 
-Open your browser at [http://localhost:8080](http://localhost:8080) and start sending HTTP POST to `/query`.
+Open your browser at [http://localhost:8080](http://localhost:8080) and start sending HTTP POST to `/query` or HTTP GET to `/images`.
 
 **Request sample:**
 
@@ -31,6 +31,26 @@ The server returns the following response:
   "size": "6.94kb"
 }
 ```
+
+`HTTP GET` `/images`
+  ```json
+  {
+    "data": [
+      {
+        "name": "1.png",
+        "url": "http://localhost:8080/images/1.png"
+      },
+      {
+        "name": "2.png",
+        "url": "http://localhost:8080/images/2.png"
+      },
+      {
+        "name": "3.png",
+        "url": "http://localhost:8080/images/3.png"
+      }
+    ]
+  }
+  ```
 
 **Development:**
 
