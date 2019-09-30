@@ -23,6 +23,7 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "jimp": "^0.8.4",
     "node-nats-streaming": "^0.2.6",
     "uuid": "^3.3.3"
   }
