@@ -1,0 +1,23 @@
+{
+  "name": "aai-setest",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "node lib/main.js",
+    "build": "babel src --ignore \"_*\" --out-dir lib --extensions .ts",
+    "start:dev": "babel-node src/main.ts --extensions .ts",
+    "serve": "nodemon src/main.ts -e js,ts,tsx -x babel-node  --extensions .ts",
+    "test-lint": "eslint 'src/**/*.{js,ts}'",
+    "test-src": "jest --passWithNoTests",
+    "typecheck": "tsc --pretty",
+    "test": "npm run test-lint && npm run typecheck && npm run test-src"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@warungpintar/warpin-scripts": "^0.3.3",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1"
+  }
+}
