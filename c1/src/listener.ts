@@ -1,16 +1,16 @@
 import { Message, Stan } from 'node-nats-streaming';
 import {
-  IMAGE_UPLOADED_CHANNEL,
   NATS_QUEUE_GROUP,
   IMAGE_PROCESSED_CHANNEL,
 } from './generals/constants';
 import Jimp from 'jimp';
+import path from 'path';
 
 function runWorker(stan: Stan) {
   stan.on('connect', () => {
-    const opts = stan.subscriptionOptions().setDurableName('image.processor');
+    const opts = stan.subscriptionOptions().setDurableName('image.writer');
     const subscription = stan.subscribe(
-      IMAGE_UPLOADED_CHANNEL,
+      IMAGE_PROCESSED_CHANNEL,
       NATS_QUEUE_GROUP,
       opts,
     );
@@ -23,25 +23,14 @@ function runWorker(stan: Stan) {
       console.log(`Incoming Message: ${msg.getSequence()}`);
       const data = msg.getData();
       const image = JSON.parse(String(data));
-      const imageSize = image.size / Math.pow(1024, 1);
 
       try {
-        const processedImage = await Jimp.read(Buffer.from(image.buffer.data));
-        processedImage.flip(true, false);
-        const processedBuffer = await processedImage.getBufferAsync(
-          Jimp.MIME_PNG,
+        const processedImage = await Jimp.read(
+          Buffer.from(image.processedImage),
         );
-
-        stan.publish(
-          IMAGE_PROCESSED_CHANNEL,
-          JSON.stringify({
-            size: imageSize,
-            processedImage: processedBuffer,
-          }),
-          (err) => {
-            console.log({ err }, 'Message Published');
-          },
-        );
+        const fileName = `${msg.getSequence()}.png`;
+        const filePath = path.join(__dirname, '../storage', fileName);
+        processedImage.write(filePath);
       } catch (error) {
         console.error(error);
       }

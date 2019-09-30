@@ -1,8 +1,18 @@
 import { connect } from 'node-nats-streaming';
 import { v4 as uuid } from 'uuid';
-import { NATS_CLUSTER, NATS_STREAMING_URL, NATS_CHANNEL } from './constants';
+import {
+  NATS_CLUSTER,
+  NATS_STREAMING_URL,
+  IMAGE_UPLOADED_CHANNEL,
+} from './constants';
 
 const clientId = uuid();
+
+const stan = connect(
+  NATS_CLUSTER,
+  uuid(),
+  { url: NATS_STREAMING_URL },
+);
 
 async function sendMessage(message: object): Promise<string> {
   const stan = connect(
@@ -23,7 +33,7 @@ async function sendMessage(message: object): Promise<string> {
         'Nats Connected',
       );
 
-      stan.publish(NATS_CHANNEL, jsonMessage, (err, guid) => {
+      stan.publish(IMAGE_UPLOADED_CHANNEL, jsonMessage, (err, guid) => {
         stan.close();
 
         if (err) {
@@ -38,4 +48,4 @@ async function sendMessage(message: object): Promise<string> {
   });
 }
 
-export { sendMessage };
+export { sendMessage, stan };
