@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  nats-streaming-server:
+    image: nats-streaming:latest
+    container_name: nats-streaming-server
+    restart: unless-stopped
+    ports:
+      - "4222:4222"
+      - "8223:8223"
+    networks:
+      - app-network
+
+  aai-setest-api:
+    build:
+      context: ../c1/
+      dockerfile: Dockerfile
+    image: aai-setest-api
+    container_name: aai-setest-api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - NATS_STREAMING_URL=nats://nats-streaming-server:4222
+    networks:
+      - app-network
+
+  aai-setest-worker:
+    build:
+      context: ../c3/
+      dockerfile: Dockerfile
+    image: aai-setest-worker
+    container_name: aai-setest-worker
+    restart: always
+    environment:
+      - NATS_STREAMING_URL=nats://nats-streaming-server:4222
+    networks:
+      - app-network
+
+networks:
+  app-network:
