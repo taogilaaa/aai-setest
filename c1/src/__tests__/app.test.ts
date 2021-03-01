@@ -31,9 +31,7 @@ describe('query controller', () => {
     const mockedSendMessage = nats.sendMessage as jest.Mock;
     mockedSendMessage.mockImplementationOnce(() => 'GUID');
 
-    await request(app)
-      .post('/query')
-      .attach('image', filePath);
+    await request(app).post('/query').attach('image', filePath);
 
     expect(mockedSendMessage).toHaveBeenCalledTimes(1);
     expect(mockedSendMessage.mock.calls[0][0].originalname).toBe('github.png');

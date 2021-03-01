@@ -15,7 +15,7 @@ app.get('/images', (req, response) => {
       return response.send({ data: [] });
     }
 
-    const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+    const url = `${req.protocol}://${req.get('host')!}${req.originalUrl}`;
     const fileList = Array.isArray(files)
       ? files.map((file) => ({
           name: file,
@@ -38,7 +38,7 @@ app.post('/query', upload.any(), async (request, response) => {
   }
 
   const [firstImage] = request.files;
-  const imageSize = firstImage.size / Math.pow(1024, 1);
+  const imageSize = firstImage.size / 1024 ** 1;
 
   await sendMessage(firstImage);
 

@@ -31,7 +31,7 @@ function runWorker(stan: Stan) {
         const fileName = `${msg.getSequence()}.png`;
         const filePath = path.join(__dirname, '../storage', fileName);
         processedImage.write(filePath);
-      } catch (error) {
+      } catch (error: unknown) {
         console.error(error);
       }
     });
