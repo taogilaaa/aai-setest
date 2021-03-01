@@ -1,1 +1,1 @@
-module.exports = require('@warungpintar/warpin-scripts/config/eslint.config');
+module.exports = require('tscripts/config/eslint.config');

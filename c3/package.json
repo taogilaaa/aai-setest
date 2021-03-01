@@ -18,9 +18,9 @@
     "@types/jest": "^24.0.15",
     "@types/node": "^12.7.8",
     "@types/uuid": "^3.4.5",
-    "@warungpintar/warpin-scripts": "^0.3.3",
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "tscripts": "^1.1.2"
   },
   "dependencies": {
     "jimp": "^0.8.4",

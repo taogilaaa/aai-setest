@@ -1,1 +1,1 @@
-module.exports = require('@warungpintar/warpin-scripts/config/babel.config');
+module.exports = require('tscripts/config/babel.config');

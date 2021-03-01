@@ -23,7 +23,7 @@ function runWorker(stan: Stan) {
       console.log(`Incoming Message: ${msg.getSequence()}`);
       const data = msg.getData();
       const image = JSON.parse(String(data));
-      const imageSize = image.size / Math.pow(1024, 1);
+      const imageSize = image.size / 1024 ** 1;
 
       try {
         const processedImage = await Jimp.read(Buffer.from(image.buffer.data));
@@ -42,7 +42,7 @@ function runWorker(stan: Stan) {
             console.log({ err }, 'Message Published');
           },
         );
-      } catch (error) {
+      } catch (error: unknown) {
         console.error(error);
       }
     });

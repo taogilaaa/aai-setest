@@ -1,4 +1,4 @@
 {
-  "extends": "@warungpintar/warpin-scripts/config/tsconfig.json",
+  "extends": "tscripts/config/tsconfig.json",
   "include": ["src"]
 }
